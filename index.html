@@ -7,10 +7,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Laurelin">
 <meta name="mobile-web-app-capable" content="yes">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https://cckfwzkemmqtgxkiqhix.supabase.co; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: 'self'; connect-src https://cckfwzkemmqtgxkiqhix.supabase.co; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Laurelin</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237A4A0F'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%23F7D58B' font-family='Georgia'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icones/favicon-32.png">
+<link rel="apple-touch-icon" href="icones/apple-touch-icon.png">
 <style>
 :root{--fundo:#FBF7EF;--painel:#FFFFFF;--mel:#C8860D;--mel-escuro:#7A4A0F;--texto:#2B2118;--suave:#7D6E5F;--linha:#E8DFCF;
 --verde:#2E7D4F;--vermelho:#B23A2E;--amarelo:#A86A12;--campo:#FFFFFF;--chip:#F3E8D4}
@@ -764,6 +766,10 @@ function sair(expirou) {
 }
 
 // ---------- carga ----------
+// aplicativo instalável (tela inicial do celular); sem internet abre a última versão guardada
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
 async function iniciar() {
   S.dados = await rpc("laurelin_web_dados", {p_token: S.token});
   const u = S.dados.usuario;

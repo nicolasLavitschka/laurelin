@@ -1045,6 +1045,15 @@ function pedidoSite(id) {
       <button class="btn" id="bEnviado">${p.status === "enviado" ? "Salvar rastreio" : "Marcar enviado"}</button>
       <button class="btn sec" id="bEntregue" style="margin-top:10px">Marcar entregue</button>`;
   }
+  if (pode && p.status !== "cancelado" && p.status !== "estornado") {
+    const admin = S.dados.usuario.papel === "admin";
+    h += `<details class="cartao" style="margin-top:16px"><summary style="cursor:pointer;font-weight:600">Cancelar pedido</summary>
+      <label for="sMotivo">Motivo do cancelamento</label><input id="sMotivo" placeholder="ex.: cliente desistiu; pedido de teste">
+      ${p.n_vendas ? (admin ? `<div class="toggle"><input type="checkbox" id="sExcluirVenda" checked><label for="sExcluirVenda" style="margin:0;color:var(--texto)">Excluir também a venda no sistema (devolve o estoque)</label></div>`
+                            : `<div class="dica">A venda continua no sistema: só o administrador pode excluí-la.</div>`) : ""}
+      ${p.pago_mp ? `<div class="dica">Foi pago pelo Mercado Pago: para devolver o dinheiro ao cliente, faça o estorno lá.</div>` : ""}
+      <button class="btn sec" id="bCancelar" style="margin-top:10px">Cancelar este pedido</button></details>`;
+  }
   $("vSite").innerHTML = h;
   window.scrollTo(0, 0);
   $("bCopiarEnd").onclick = async ev => { ev.preventDefault(); try { await navigator.clipboard.writeText(end + (p.telefone ? "\nTel. " + p.telefone : "")); aviso("Endereço copiado.", "ok"); } catch (e) { aviso("Não deu para copiar neste aparelho.", "erro"); } };
@@ -1055,6 +1064,13 @@ function pedidoSite(id) {
     if (!cod) return aviso("Informe o código de rastreio.", "erro");
     const avisar = $("sAvisar").checked && p.status !== "enviado";
     salvar("bEnviado", {status: "enviado", rastreio: cod, avisar}, avisar ? "Enviado. O cliente recebe o e-mail em até 10 min." : "Salvo.");
+  };
+  if ($("bCancelar")) $("bCancelar").onclick = () => {
+    const motivo = $("sMotivo").value.trim();
+    if (!motivo) return aviso("Informe o motivo do cancelamento.", "erro");
+    const excluir = !!($("sExcluirVenda") && $("sExcluirVenda").checked);
+    if (!confirm(`Cancelar ${p.numero} (${p.nome})?${excluir ? "\n\nA venda dele no sistema também será excluída." : ""}`)) return;
+    salvar("bCancelar", {status: "cancelado", motivo, excluir_vendas: excluir}, "Pedido cancelado.");
   };
   if ($("bEntregue")) $("bEntregue").onclick = () => {
     if (!confirm(`Marcar ${p.numero} como entregue?`)) return;

@@ -83,6 +83,10 @@ background:#2B2118;color:#fff;font-size:15px;display:none;box-shadow:0 6px 20px 
 .login .marca span{color:var(--suave);font-size:14px}
 .oculto{display:none!important}
 .dica{font-size:13px;color:var(--suave);margin-top:6px}
+.badge{display:inline-block;min-width:16px;margin-left:3px;padding:0 4px;border-radius:99px;background:var(--vermelho);color:#fff;font-size:10px;line-height:16px;vertical-align:top}
+.chip.pago,.chip.confirmado,.chip.em_separacao{background:#F6E2B8;color:#7A4A0F}.chip.enviado{background:#DCE8F5;color:#1F3F66}.chip.entregue{background:#D6EEDC;color:#1F5E39}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.pago,:root:not([data-theme="light"]) .chip.confirmado,:root:not([data-theme="light"]) .chip.em_separacao{background:#4A3416;color:#F3C677}
+:root:not([data-theme="light"]) .chip.enviado{background:#1D2E44;color:#A9C8EE}:root:not([data-theme="light"]) .chip.entregue{background:#1E3A28;color:#8FD8AB}}
 .voltar{border:0;background:none;color:var(--mel);font:600 15px system-ui,sans-serif;padding:4px 0;margin-bottom:6px}
 </style>
 </head>
@@ -159,12 +163,14 @@ background:#2B2118;color:#fff;font-size:15px;display:none;box-shadow:0 6px 20px 
     </section>
     <section id="vReceber" class="oculto"></section>
     <section id="vClientes" class="oculto"></section>
+    <section id="vSite" class="oculto"></section>
   </main>
   <nav>
     <button data-v="vInicio" class="on"><span class="i">◉</span>Início</button>
     <button data-v="vLancar"><span class="i">＋</span>Lançar</button>
     <button data-v="vReceber"><span class="i">$</span>A receber</button>
     <button data-v="vClientes"><span class="i">☺</span>Clientes</button>
+    <button data-v="vSite"><span class="i">▣</span>Site<span id="nSite"></span></button>
   </nav>
 </div>
 <datalist id="dlClientes"></datalist><datalist id="dlFornecedores"></datalist>
@@ -752,7 +758,7 @@ async function entrar() {
 }
 function sair(expirou) {
   if (S.token && !expirou) rpc("laurelin_web_sair", {p_token: S.token}).catch(() => {});
-  Object.assign(S, {token: null, dek: null, usuario: null, dados: null, painel: null, clientes: null});
+  Object.assign(S, {token: null, dek: null, usuario: null, dados: null, painel: null, clientes: null, site: null});
   $("app").classList.add("oculto"); $("telaLogin").classList.remove("oculto");
   $("lStatus").textContent = expirou ? "Sua sessão expirou. Entre de novo." : "Mesmo usuário e senha do sistema no computador.";
 }
@@ -766,6 +772,11 @@ async function iniciar() {
   $("telaLogin").classList.add("oculto"); $("app").classList.remove("oculto");
   document.querySelector('nav [data-v="vLancar"]').classList.toggle("oculto", u.papel === "consulta");
   mostrar("vInicio");
+  // pedidos do site esperando envio: número no botão "Site" (sem travar a entrada se a loja não existir)
+  rpc("laurelin_web_pedidos_site", {p_token: S.token}).then(r => {
+    if (!r || !r.disponivel) { document.querySelector('nav [data-v="vSite"]').classList.add("oculto"); return; }
+    marcaSite(r.pedidos.filter(p => A_ENVIAR.includes(p.status)).length);
+  }).catch(() => document.querySelector('nav [data-v="vSite"]').classList.add("oculto"));
 }
 function opcoes(sel, lista, valor) {
   $(sel).innerHTML = lista.map(o => typeof o === "object" ? `<option value="${esc(o.v)}">${esc(o.t)}</option>` : `<option>${esc(o)}</option>`).join("");
@@ -810,6 +821,7 @@ function mostrar(v) {
   if (v === "vInicio") telaInicio();
   if (v === "vReceber") telaReceber();
   if (v === "vClientes") telaClientes();
+  if (v === "vSite") telaSite();
 }
 function carregando(id) { $(id).innerHTML = `<div class="vazio">Carregando...</div>`; }
 
@@ -959,6 +971,98 @@ function trocarForm(f) {
   $("fVenda").classList.toggle("oculto", f !== "venda"); $("fDespesa").classList.toggle("oculto", f !== "despesa");
   $("fAmostra").classList.toggle("oculto", f !== "amostra");
 }
+
+// ---------- pedidos do site (laurelinhidromel.com.br) ----------
+const SITU_SITE = {pago: "A enviar", confirmado: "A enviar", em_separacao: "Em separação", enviado: "Enviado", entregue: "Entregue"};
+const RAST_SITE = {pending: "Etiqueta criada", released: "Etiqueta paga", generated: "Etiqueta gerada", received: "No ponto de coleta",
+  posted: "Postado · a caminho", delivered: "Entregue", undelivered: "Entrega não realizada", paused: "Entrega interrompida",
+  suspended: "Envio suspenso", canceled: "Etiqueta cancelada", cancelled: "Etiqueta cancelada"};
+const A_ENVIAR = ["pago", "confirmado", "em_separacao"];
+function enderecoSite(p) {
+  const e = p.entrega || {};
+  if (e.tipo === "retirada") return "Retirada — combinar pelo WhatsApp";
+  return [e.destinatario || p.nome, `${e.logradouro || ""}, ${e.numero || ""}${e.complemento ? " — " + e.complemento : ""}`,
+    `${e.bairro || ""} · ${e.cidade || ""}/${e.uf || ""}`, e.cep ? `CEP ${e.cep}` : ""].filter(l => l && l.replace(/[ ,·/—]/g, "")).join("\n");
+}
+function marcaSite(n) { $("nSite").innerHTML = n ? `<span class="badge">${n}</span>` : ""; }
+async function telaSite(filtro) {
+  S.filtroSite = filtro || S.filtroSite || "enviar";
+  carregando("vSite");
+  try { S.site = await rpc("laurelin_web_pedidos_site", {p_token: S.token}); }
+  catch (e) { $("vSite").innerHTML = `<div class="vazio">${esc(e.message)}</div>`; return; }
+  if (!S.site.disponivel) { $("vSite").innerHTML = `<div class="vazio">A loja do site ainda não está instalada neste banco.</div>`; return; }
+  const todos = S.site.pedidos, aEnviar = todos.filter(p => A_ENVIAR.includes(p.status));
+  marcaSite(aEnviar.length);
+  const lista = {enviar: aEnviar, enviados: todos.filter(p => p.status === "enviado"), entregues: todos.filter(p => p.status === "entregue")}[S.filtroSite];
+  let h = `<h2>Pedidos do site</h2><div class="seg">
+    <button class="${S.filtroSite === "enviar" ? "on" : ""}" onclick="telaSite('enviar')">A enviar (${aEnviar.length})</button>
+    <button class="${S.filtroSite === "enviados" ? "on" : ""}" onclick="telaSite('enviados')">Enviados</button>
+    <button class="${S.filtroSite === "entregues" ? "on" : ""}" onclick="telaSite('entregues')">Entregues</button></div>`;
+  if (!lista.length) h += `<div class="vazio">${S.filtroSite === "enviar" ? "Nenhum pedido esperando envio." : "Nada por aqui."}</div>`;
+  h += lista.map(p => {
+    const e = p.entrega || {}, prob = p.rastreio_erro || ["undelivered", "paused", "suspended"].includes(p.rastreio_status);
+    const rast = p.rastreio_status ? RAST_SITE[p.rastreio_status] || p.rastreio_status : p.status === "enviado" ? "aguardando consulta" : "";
+    return `<button class="item" data-pedido="${p.id}"><div class="t"><span>${esc(p.numero)} · ${esc(p.nome)}</span><span class="num">${brl(p.total)}</span></div>
+      <div class="d">${dbr(p.data)} · ${esc(e.tipo === "retirada" ? "Retirada" : [e.cidade, e.uf].filter(Boolean).join("/"))} · ${esc((p.itens || []).map(i => i.qtd + "× " + i.nome).join(", "))}</div>
+      <div class="d"><span class="chip ${esc(p.status)}">${esc(SITU_SITE[p.status] || p.status)}</span>${p.rastreio ? ` · ${esc(p.rastreio)}` : ""}${rast ? ` · <span class="${prob ? "neg" : ""}">${esc(rast)}</span>` : ""}</div></button>`;
+  }).join("");
+  h += `<div class="dica">O e-mail ao cliente sai pelo site em até 10 minutos. O rastreio do Melhor Envio é conferido de hora em hora.</div>
+    <button class="btn sec" style="margin-top:12px" onclick="telaSite()">Atualizar</button>`;
+  $("vSite").innerHTML = h;
+  $("vSite").querySelectorAll("[data-pedido]").forEach(b => b.onclick = () => pedidoSite(+b.dataset.pedido));
+}
+function pedidoSite(id) {
+  const p = S.site.pedidos.find(x => x.id === id), pode = S.site.pode && S.dados.usuario.papel !== "consulta";
+  const end = enderecoSite(p), fone = String(p.telefone || "").replace(/\D/g, ""), e = p.entrega || {};
+  const mapa = e.logradouro ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.logradouro}, ${e.numero} - ${e.cidade} ${e.uf} ${e.cep}`)}` : "";
+  const rast = p.rastreio_status ? RAST_SITE[p.rastreio_status] || p.rastreio_status : "";
+  let h = `<button class="voltar" onclick="telaSite()">‹ Voltar</button><h2>${esc(p.numero)} · ${esc(p.nome)}</h2>
+    <div class="cartao"><div class="linha"><span>Situação</span><span><span class="chip ${esc(p.status)}">${esc(SITU_SITE[p.status] || p.status)}</span></span></div>
+    <div class="linha"><span>Data</span><span>${dbr(p.data)}</span></div>
+    ${(p.itens || []).map(i => `<div class="linha"><span>${i.qtd} × ${esc(i.nome)}</span><span class="num">${brl(i.qtd * i.preco)}</span></div>`).join("")}
+    <div class="linha"><span>Frete <span class="d">· ${esc(p.frete_servico || "—")}</span></span><span class="num">${brl(p.frete)}</span></div>
+    <div class="linha"><b>Total</b><b class="num">${brl(p.total)}</b></div></div>
+    <h3>Entrega</h3><div class="cartao"><div style="white-space:pre-line">${esc(end)}</div>
+    ${p.obs_cliente ? `<div class="dica">Obs. do cliente: ${esc(p.obs_cliente)}</div>` : ""}
+    <div class="acoes" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      ${fone ? `<a href="https://wa.me/55${fone.replace(/^55/, "")}" target="_blank" rel="noopener">WhatsApp</a>` : ""}
+      ${mapa ? `<a href="${mapa}" target="_blank" rel="noopener">Mapa</a>` : ""}
+      <a href="#" id="bCopiarEnd">Copiar endereço</a></div></div>`;
+  if (p.rastreio) h += `<h3>Rastreio</h3><div class="cartao"><div class="linha"><span>Código</span><span>${esc(p.rastreio)}</span></div>
+    ${rast ? `<div class="linha"><span>Transportadora</span><span>${esc(rast)}</span></div>` : ""}
+    ${p.postado ? `<div class="linha"><span>Postado</span><span>${esc(p.postado)}</span></div>` : ""}
+    ${p.entregue ? `<div class="linha"><span>Entregue</span><span>${esc(p.entregue)}</span></div>` : ""}
+    ${p.checado ? `<div class="dica">Consultado em ${esc(p.checado)}</div>` : ""}
+    ${p.rastreio_erro ? `<div class="dica neg">Não consegui consultar: ${esc(p.rastreio_erro)}</div>` : ""}
+    ${p.rastreio_url ? `<div class="acoes" style="display:flex;margin-top:8px"><a href="${esc(p.rastreio_url)}" target="_blank" rel="noopener">Acompanhar</a></div>` : ""}</div>`;
+  if (p.emails_na_fila) h += `<div class="dica">${p.emails_na_fila} e-mail(s) ao cliente aguardando envio pelo site.</div>`;
+  if (!pode) h += `<div class="dica">Seu usuário é só de consulta.</div>`;
+  else if (A_ENVIAR.includes(p.status) || p.status === "enviado") {
+    h += `<h3>${p.status === "enviado" ? "Atualizar envio" : "Enviar"}</h3>
+      ${p.status !== "em_separacao" && p.status !== "enviado" ? `<button class="btn sec" id="bSeparar" style="margin-bottom:10px">Marcar em separação</button>` : ""}
+      <label for="sRastreio">Código de rastreio (ou protocolo ORD- do Melhor Envio)</label><input id="sRastreio" value="${esc(p.rastreio || "")}" autocapitalize="characters">
+      <div class="toggle"><input type="checkbox" id="sAvisar" checked><label for="sAvisar" style="margin:0;color:var(--texto)">Mandar e-mail ao cliente</label></div>
+      <button class="btn" id="bEnviado">${p.status === "enviado" ? "Salvar rastreio" : "Marcar enviado"}</button>
+      <button class="btn sec" id="bEntregue" style="margin-top:10px">Marcar entregue</button>`;
+  }
+  $("vSite").innerHTML = h;
+  window.scrollTo(0, 0);
+  $("bCopiarEnd").onclick = async ev => { ev.preventDefault(); try { await navigator.clipboard.writeText(end + (p.telefone ? "\nTel. " + p.telefone : "")); aviso("Endereço copiado.", "ok"); } catch (e) { aviso("Não deu para copiar neste aparelho.", "erro"); } };
+  const salvar = async (botao, dados, ok) => { try { await enviar(botao, "laurelin_web_pedido_site", {id, ...dados}, ok); telaSite(); } catch (e) { /* aviso já mostrado */ } };
+  if ($("bSeparar")) $("bSeparar").onclick = () => salvar("bSeparar", {status: "em_separacao"}, "Em separação.");
+  if ($("bEnviado")) $("bEnviado").onclick = () => {
+    const cod = $("sRastreio").value.trim();
+    if (!cod) return aviso("Informe o código de rastreio.", "erro");
+    const avisar = $("sAvisar").checked && p.status !== "enviado";
+    salvar("bEnviado", {status: "enviado", rastreio: cod, avisar}, avisar ? "Enviado. O cliente recebe o e-mail em até 10 min." : "Salvo.");
+  };
+  if ($("bEntregue")) $("bEntregue").onclick = () => {
+    if (!confirm(`Marcar ${p.numero} como entregue?`)) return;
+    salvar("bEntregue", {status: "entregue", avisar: $("sAvisar") ? $("sAvisar").checked : true},
+      "Entregue. O cliente recebe o pedido de avaliação em até 10 min.");
+  };
+}
+
 async function enviar(botao, fn, dados, ok) {
   $(botao).disabled = true;
   try {

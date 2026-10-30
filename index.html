@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Laurelin">
 <meta name="mobile-web-app-capable" content="yes">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: 'self'; connect-src https://cckfwzkemmqtgxkiqhix.supabase.co; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: 'self'; connect-src https://cckfwzkemmqtgxkiqhix.supabase.co https://laurelinhidromel.com.br; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Laurelin</title>
 <link rel="manifest" href="manifest.webmanifest">
@@ -89,6 +89,7 @@ background:#2B2118;color:#fff;font-size:15px;display:none;box-shadow:0 6px 20px 
 .chip.pago,.chip.confirmado,.chip.em_separacao{background:#F6E2B8;color:#7A4A0F}.chip.enviado{background:#DCE8F5;color:#1F3F66}.chip.entregue{background:#D6EEDC;color:#1F5E39}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.pago,:root:not([data-theme="light"]) .chip.confirmado,:root:not([data-theme="light"]) .chip.em_separacao{background:#4A3416;color:#F3C677}
 :root:not([data-theme="light"]) .chip.enviado{background:#1D2E44;color:#A9C8EE}:root:not([data-theme="light"]) .chip.entregue{background:#1E3A28;color:#8FD8AB}}
+.btn.mini{width:auto;margin:0;padding:8px 14px;font-size:14px;flex:none}
 .voltar{border:0;background:none;color:var(--mel);font:600 15px system-ui,sans-serif;padding:4px 0;margin-bottom:6px}
 </style>
 </head>
@@ -96,6 +97,7 @@ background:#2B2118;color:#fff;font-size:15px;display:none;box-shadow:0 6px 20px 
 <div id="telaLogin" class="login">
   <div class="marca"><b>LAURELIN</b><span>Hidromel · controle financeiro</span></div>
   <div class="cartao">
+    <button class="btn oculto" id="bDigital" style="margin:0 0 14px">Entrar com a digital</button>
     <label for="lUsuario">Usuário</label>
     <input id="lUsuario" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
     <label for="lSenha">Senha</label>
@@ -679,7 +681,7 @@ const CATEG = ["Insumos (mel, levedura, aditivos)", "Embalagem (garrafa, rótulo
   "Marketing e divulgação", "Eventos", "Transporte e entregas", "Serviços de terceiros", "Taxas, tarifas e impostos",
   "Alimentação e representação", "Retirada de sócio", "Outros"];
 const SAIDAS = ["Amostra / Lead", "Brinde / Ativação", "Permuta", "Doação", "Degustação em evento", "Consumo dos sócios", "Perda / Quebra"];
-const S = {token: null, dek: null, usuario: null, dados: null, painel: null, clientes: null};
+const S = {token: null, dek: null, dekRaw: null, aparelho: null, usuario: null, dados: null, painel: null, clientes: null};
 const $ = id => document.getElementById(id);
 const brl = v => (v < -0.004 ? "-" : "") + "R$ " + Math.abs(+v || 0).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
 const n0 = v => (+v || 0).toLocaleString("pt-BR", {maximumFractionDigits: 1});
@@ -723,6 +725,7 @@ async function abrirChave(blob, senha, progresso) {
   const k = await scrypt.scrypt(new TextEncoder().encode(senha), salt, 32768, 8, 1, 32, progresso);
   const kek = await crypto.subtle.importKey("raw", k, "AES-GCM", false, ["decrypt"]);
   const dek = await crypto.subtle.decrypt({name: "AES-GCM", iv: nonce, additionalData: new TextEncoder().encode("laurelin-cofre-v1")}, kek, ct);
+  S.dekRaw = new Uint8Array(dek);   // fica só na memória; vai cifrado pela digital se ela for ligada
   return crypto.subtle.importKey("raw", dek, "AES-GCM", false, ["decrypt"]);
 }
 async function dec(v) {
@@ -747,8 +750,8 @@ async function entrar() {
       $("lStatus").textContent = "Abrindo a chave dos dados...";
       try {
         S.dek = await abrirChave(r.chave, s, p => { $("lStatus").textContent = `Abrindo a chave dos dados... ${Math.round(p * 100)}%`; });
-        if (r.verificador && (await dec(r.verificador)) !== "laurelin-ok") S.dek = null;
-      } catch (e) { S.dek = null; }
+        if (r.verificador && (await dec(r.verificador)) !== "laurelin-ok") { S.dek = null; S.dekRaw = null; }
+      } catch (e) { S.dek = null; S.dekRaw = null; }
       if (!S.dek) aviso("Não foi possível abrir a chave dos dados: telefones e endereços ficam ocultos. Entre uma vez no computador para atualizar.", "erro");
     }
     $("lSenha").value = "";
@@ -760,15 +763,185 @@ async function entrar() {
 }
 function sair(expirou) {
   if (S.token && !expirou) rpc("laurelin_web_sair", {p_token: S.token}).catch(() => {});
-  Object.assign(S, {token: null, dek: null, usuario: null, dados: null, painel: null, clientes: null, site: null});
+  Object.assign(S, {token: null, dek: null, dekRaw: null, aparelho: null, usuario: null, dados: null, painel: null, clientes: null, site: null});
   $("app").classList.add("oculto"); $("telaLogin").classList.remove("oculto");
   $("lStatus").textContent = expirou ? "Sua sessão expirou. Entre de novo." : "Mesmo usuário e senha do sistema no computador.";
+  mostrarDigital();
+}
+
+// ---------- digital (celular lembrado por 30 dias) ----------
+// A senha nunca fica guardada. Ao ligar a digital, o banco dá a este celular uma autorização que vale 30 dias; ela
+// (junto com a chave dos dados) fica guardada aqui cifrada com uma chave que só a digital libera (WebAuthn PRF).
+const SITE = "https://laurelinhidromel.com.br";
+const DIG = "laurelin_digital";
+const b64e = u => btoa(String.fromCharCode(...new Uint8Array(u)));
+const b64u = s => b64(s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4));
+const lerDigital = () => {
+  try { const d = JSON.parse(localStorage.getItem(DIG) || "null"); return d && d.v === 1 && Date.parse(d.expira) > Date.now() ? d : null; }
+  catch (e) { return null; }
+};
+const apagarDigital = () => { try { localStorage.removeItem(DIG); } catch (e) { /* armazenamento indisponível */ } };
+const nomeAparelho = () => (/Android/i.test(navigator.userAgent) ? "Android" : "Celular") + " · " + new Date().toLocaleDateString("pt-BR");
+async function digitalPossivel() {
+  try { return !!(window.PublicKeyCredential && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()); }
+  catch (e) { return false; }
+}
+async function chaveDigital(prf, sal) {
+  const base = await crypto.subtle.importKey("raw", prf, "HKDF", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({name: "HKDF", hash: "SHA-256", salt: sal, info: new TextEncoder().encode("laurelin-digital-v1")},
+    base, {name: "AES-GCM", length: 256}, false, ["encrypt", "decrypt"]);
+}
+async function prfDigital(credId, sal) {
+  const a = await navigator.credentials.get({publicKey: {challenge: crypto.getRandomValues(new Uint8Array(32)), rpId: location.hostname,
+    allowCredentials: [{type: "public-key", id: credId}], userVerification: "required", timeout: 60000,
+    extensions: {prf: {eval: {first: sal}}}}});
+  const r = a.getClientExtensionResults().prf;
+  if (!r || !r.results || !r.results.first) throw new Error("Este celular não liberou a digital para o aplicativo. Entre com a senha.");
+  return r.results.first;
+}
+function mostrarDigital() {
+  const d = lerDigital();
+  $("bDigital").classList.toggle("oculto", !d);
+  if (d) {
+    $("bDigital").textContent = `Entrar com a digital (${d.nome || d.login})`;
+    $("lStatus").textContent = "Ou entre com usuário e senha.";
+  }
+}
+async function ativarDigital(b) {
+  b.disabled = true;
+  try {
+    const sal = crypto.getRandomValues(new Uint8Array(32));
+    const c = await navigator.credentials.create({publicKey: {challenge: crypto.getRandomValues(new Uint8Array(32)),
+      rp: {name: "Laurelin", id: location.hostname},
+      user: {id: crypto.getRandomValues(new Uint8Array(16)), name: S.usuario.login, displayName: S.usuario.nome || S.usuario.login},
+      pubKeyCredParams: [{type: "public-key", alg: -7}, {type: "public-key", alg: -257}],
+      authenticatorSelection: {authenticatorAttachment: "platform", userVerification: "required", residentKey: "preferred"},
+      timeout: 60000, extensions: {prf: {eval: {first: sal}}}}});
+    const ext = c.getClientExtensionResults().prf || {};
+    if (ext.enabled === false) throw new Error("Este celular não oferece a digital para aplicativos da internet. Continue entrando com a senha.");
+    let prf = ext.results && ext.results.first;
+    if (!prf) { aviso("Toque na digital mais uma vez para confirmar.", "ok"); prf = await prfDigital(c.rawId, sal); }
+    const r = await rpc("laurelin_web_lembrar", {p_token: S.token, p_dados: {nome: nomeAparelho()}});
+    if (!r.ok) throw new Error(r.erro || "Não deu para lembrar este celular.");
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const seg = new TextEncoder().encode(JSON.stringify({aparelho: r.aparelho, dek: S.dekRaw ? b64e(S.dekRaw) : null}));
+    const ct = await crypto.subtle.encrypt({name: "AES-GCM", iv}, await chaveDigital(prf, sal), seg);
+    localStorage.setItem(DIG, JSON.stringify({v: 1, login: S.usuario.login, nome: S.usuario.nome || S.usuario.login,
+      cred: b64e(c.rawId), sal: b64e(sal), iv: b64e(iv), ct: b64e(ct), expira: r.expira_em}));
+    S.aparelho = r.aparelho;
+    aviso("Pronto: nos próximos 30 dias, entre só com a digital.", "ok");
+  } catch (e) {
+    aviso(e.name === "NotAllowedError" ? "Digital cancelada." : e.message, "erro");
+  }
+  b.disabled = false;
+  cartaoCelular();
+}
+async function desligarDigital(b) {
+  b.disabled = true;
+  if (S.aparelho) { try { await rpc("laurelin_web_esquecer", {p_token: S.aparelho}); } catch (e) { /* vence sozinho em 30 dias */ } }
+  apagarDigital(); S.aparelho = null;
+  aviso("Digital desligada neste celular.", "ok");
+  cartaoCelular();
+}
+async function entrarDigital() {
+  const d = lerDigital();
+  if (!d) { apagarDigital(); mostrarDigital(); return; }
+  $("bDigital").disabled = true; $("lStatus").textContent = "Toque no sensor de digital...";
+  try {
+    const sal = b64(d.sal);
+    const prf = await prfDigital(b64(d.cred), sal);
+    let seg;
+    try { seg = JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name: "AES-GCM", iv: b64(d.iv)}, await chaveDigital(prf, sal), b64(d.ct)))); }
+    catch (e) { apagarDigital(); mostrarDigital(); throw new Error("A digital deste celular mudou. Entre com a senha e ligue a digital de novo."); }
+    $("lStatus").textContent = "Conferindo...";
+    const r = await rpc("laurelin_web_entrar_aparelho", {p_token: seg.aparelho});
+    if (!r.ok) { if (r.vencido) { apagarDigital(); mostrarDigital(); } throw new Error(r.erro); }
+    S.token = r.token; S.usuario = r; S.aparelho = seg.aparelho;
+    if (seg.dek) {
+      S.dekRaw = b64(seg.dek);
+      S.dek = await crypto.subtle.importKey("raw", S.dekRaw, "AES-GCM", false, ["decrypt"]);
+      if (r.verificador && (await dec(r.verificador)) !== "laurelin-ok") { S.dek = null; S.dekRaw = null; }
+    }
+    if (r.chave && !S.dek) aviso("A chave dos dados mudou: entre uma vez com a senha para ver telefones e endereços.", "erro");
+    await iniciar();
+  } catch (e) {
+    $("lStatus").textContent = e.name === "NotAllowedError" ? "Digital cancelada. Toque em \"Entrar com a digital\" ou use a senha." : e.message;
+  } finally { $("bDigital").disabled = false; }
+}
+
+// ---------- aviso de venda nova no site ----------
+const avisosPossiveis = () => "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+// o service worker pode demorar (ou falhar) para ficar pronto: não deixa a tela esperando para sempre
+const swPronto = () => Promise.race([navigator.serviceWorker.ready,
+  new Promise((_, nao) => setTimeout(() => nao(new Error("O aplicativo ainda está se preparando. Feche e abra de novo.")), 8000))]);
+async function assinaturaAtual() {
+  if (!avisosPossiveis()) return null;
+  try { return await (await swPronto()).pushManager.getSubscription(); } catch (e) { return null; }
+}
+async function gravarAssinatura(sub, ativo) {
+  const j = sub.toJSON();
+  return rpc("laurelin_web_push", {p_token: S.token, p_dados: {endpoint: j.endpoint, p256dh: j.keys && j.keys.p256dh,
+    auth: j.keys && j.keys.auth, nome: nomeAparelho(), ativo}});
+}
+async function ligarAvisos(b) {
+  b.disabled = true;
+  try {
+    if (await Notification.requestPermission() !== "granted")
+      throw new Error("Sem permissão de aviso. Libere as notificações do Laurelin nas configurações do celular.");
+    const reg = await swPronto();
+    let sub = await reg.pushManager.getSubscription();
+    if (!sub) {
+      let k;
+      try { const r = await fetch(SITE + "/api/push-chave", {cache: "no-store"}); k = (await r.json()).chave; } catch (e) { k = null; }
+      if (!k) throw new Error("O site não respondeu. Tente de novo em instantes.");
+      sub = await reg.pushManager.subscribe({userVisibleOnly: true, applicationServerKey: b64u(k)});
+    }
+    await gravarAssinatura(sub, true);
+    aviso("Avisos ligados: cada venda paga no site aparece aqui.", "ok");
+  } catch (e) { aviso(e.message, "erro"); }
+  b.disabled = false;
+  cartaoCelular();
+}
+async function desligarAvisos(b) {
+  b.disabled = true;
+  const sub = await assinaturaAtual();
+  if (sub) { try { await gravarAssinatura(sub, false); } catch (e) { /* segue */ } try { await sub.unsubscribe(); } catch (e) { /* segue */ } }
+  aviso("Avisos desligados neste celular.", "ok");
+  b.disabled = false;
+  cartaoCelular();
+}
+async function cartaoCelular() {
+  const el = $("cCelular"); if (!el) return;
+  const d = lerDigital(), meu = d && d.login === S.usuario.login, pode = await digitalPossivel();
+  const sub = await assinaturaAtual();
+  let h = `<div class="linha"><span style="text-align:left">Entrar com a digital<div class="d">${meu ? `ligado até ${dbr(d.expira.slice(0, 10))}` :
+    pode ? "desligado · vale 30 dias, depois pede a senha" : "este celular não tem leitor disponível"}</div></span>`;
+  if (meu) h += `<button class="btn sec mini" id="bDigOff">Desligar</button>`;
+  else if (pode) h += `<button class="btn mini" id="bDigOn">Ligar</button>`;
+  h += `</div><div class="linha"><span style="text-align:left">Avisar vendas do site<div class="d">${!avisosPossiveis() ? "não funciona neste navegador (use o Chrome)" :
+    Notification.permission === "denied" ? "bloqueado: libere as notificações nas configurações do site no Chrome" :
+    sub ? "ligado neste celular" : "desligado"}</div></span>`;
+  if (avisosPossiveis() && Notification.permission !== "denied") h += sub ? `<button class="btn sec mini" id="bPushOff">Desligar</button>` : `<button class="btn mini" id="bPushOn">Ligar</button>`;
+  h += `</div>`;
+  el.innerHTML = h;
+  // logo depois de entrar com a senha: convite no topo para ligar a digital
+  if ($("cOferta")) $("cOferta").innerHTML = pode && !meu && !S.semOferta ? `<div class="cartao"><b>Entrar com a digital</b>
+    <div style="margin:4px 0 10px;color:var(--suave);font-size:14px">Ligue uma vez e, por 30 dias, este celular abre o Laurelin só com a digital, sem digitar a senha.</div>
+    <div style="display:flex;gap:8px"><button class="btn mini" id="bDigOn2">Ligar a digital</button>
+    <button class="btn sec mini" id="bDigNao">Agora não</button></div></div>` : "";
+  if ($("bDigNao")) $("bDigNao").onclick = () => { S.semOferta = true; $("cOferta").innerHTML = ""; };
+  const liga = (id, f) => { if ($(id)) $(id).onclick = ev => f(ev.currentTarget); };
+  liga("bDigOn", ativarDigital); liga("bDigOn2", ativarDigital); liga("bDigOff", desligarDigital); liga("bPushOn", ligarAvisos); liga("bPushOff", desligarAvisos);
 }
 
 // ---------- carga ----------
 // aplicativo instalável (tela inicial do celular); sem internet abre a última versão guardada
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+  // toque no aviso de venda com o aplicativo aberto: vai para os pedidos do site
+  navigator.serviceWorker.addEventListener("message", ev => {
+    if (ev.data && ev.data.abrir) { if (S.token) mostrar(ev.data.abrir); else S.abrir = ev.data.abrir; }
+  });
 }
 async function iniciar() {
   S.dados = await rpc("laurelin_web_dados", {p_token: S.token});
@@ -777,7 +950,11 @@ async function iniciar() {
   montarFormularios();
   $("telaLogin").classList.add("oculto"); $("app").classList.remove("oculto");
   document.querySelector('nav [data-v="vLancar"]').classList.toggle("oculto", u.papel === "consulta");
-  mostrar("vInicio");
+  mostrar(S.abrir || (location.hash === "#site" ? "vSite" : "vInicio"));
+  S.abrir = null;
+  if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+  // assinatura de aviso já existente: confirma no banco para o usuário que entrou agora
+  assinaturaAtual().then(sub => { if (sub) gravarAssinatura(sub, true).catch(() => {}); });
   // pedidos do site esperando envio: número no botão "Site" (sem travar a entrada se a loja não existir)
   rpc("laurelin_web_pedidos_site", {p_token: S.token}).then(r => {
     if (!r || !r.disponivel) { document.querySelector('nav [data-v="vSite"]').classList.add("oculto"); return; }
@@ -837,7 +1014,7 @@ async function telaInicio() {
   const p = S.painel, venc = p.receber.filter(r => r.vencimento < p.hoje);
   const tot = p.receber.reduce((a, r) => a + r.saldo, 0), tv = venc.reduce((a, r) => a + r.saldo, 0);
   const mes = new Date(p.hoje + "T12:00").toLocaleDateString("pt-BR", {month: "long"});
-  let h = `<h2>Resumo · ${esc(mes)}</h2><div class="grade">
+  let h = `<div id="cOferta"></div><h2>Resumo · ${esc(mes)}</h2><div class="grade">
     <div class="kpi"><div class="r">Faturado no mês</div><div class="v num">${brl(p.mes.faturado)}</div><div class="s">${n0(p.mes.garrafas)} garrafas · ${p.mes.vendas} vendas</div></div>
     <div class="kpi"><div class="r">Faturado no ano</div><div class="v num">${brl(p.ano.faturado)}</div><div class="s">${n0(p.ano.garrafas)} garrafas</div></div>
     <div class="kpi"><div class="r">Recebido no mês</div><div class="v num pos">${brl(p.recebido_mes)}</div></div>
@@ -850,8 +1027,10 @@ async function telaInicio() {
   h += p.estoque.map(e => `<div class="linha"><span>${esc(e.produto)} <span class="d">· ${esc(e.local)}</span></span><span class="num ${e.qtd < 0 ? "neg" : ""}">${n0(e.qtd)}</span></div>`).join("") || `<div class="vazio">Sem estoque registrado.</div>`;
   h += `</div><h3>Últimas vendas</h3><div class="cartao">`;
   h += p.ultimas.map(v => `<div class="linha"><span>${esc(v.cliente)}<div class="d">${dbr(v.data)} · ${n0(v.qtd)} × ${esc(v.produto)}</div></span><span class="num">${brl(v.total)}</span></div>`).join("") || `<div class="vazio">Nenhuma venda.</div>`;
-  h += `</div><button class="btn sec" onclick="telaInicio()">Atualizar</button>`;
+  h += `</div><h3>Este celular</h3><div class="cartao" id="cCelular"><div class="vazio">...</div></div>`;
+  h += `<button class="btn sec" onclick="telaInicio()">Atualizar</button>`;
   $("vInicio").innerHTML = h;
+  cartaoCelular();
 }
 
 async function telaReceber() {
@@ -1125,6 +1304,7 @@ async function lancarAmostra() {
 
 // ---------- eventos ----------
 $("bEntrar").onclick = entrar;
+$("bDigital").onclick = entrarDigital;
 $("lSenha").addEventListener("keydown", e => { if (e.key === "Enter") entrar(); });
 $("bSair").onclick = () => sair(false);
 document.querySelectorAll("nav button").forEach(b => b.onclick = () => mostrar(b.dataset.v));
@@ -1135,7 +1315,9 @@ $("vVenc").addEventListener("input", () => { $("vVenc").dataset.mexeu = "1"; });
 $("vRecebido").onchange = () => { const r = $("vRecebido").checked; $("vRecBox").classList.toggle("oculto", !r); $("vVencBox").classList.toggle("oculto", r); };
 $("bVenda").onclick = lancarVenda; $("bDespesa").onclick = lancarDespesa; $("bAmostra").onclick = lancarAmostra;
 try { $("lUsuario").value = localStorage.getItem("laurelin_usuario") || ""; } catch (e) { /* armazenamento indisponível */ }
-if ($("lUsuario").value) $("lSenha").focus();
+mostrarDigital();
+if (lerDigital()) entrarDigital();   // abre direto pedindo a digital
+else if ($("lUsuario").value) $("lSenha").focus();
 // por segurança, a sessão do aparelho fecha depois de 30 minutos sem uso
 let ultimoUso = Date.now();
 ["click", "keydown", "touchstart"].forEach(ev => document.addEventListener(ev, () => { ultimoUso = Date.now(); }, {passive: true}));

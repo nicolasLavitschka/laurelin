@@ -31,7 +31,47 @@ Aprovado pelo Nícolas em 06/11 (menos o Mercado Livre, que fica para depois). S
 
 As artes antigas (Kit 2 R$ 150 / Kit 3 R$ 225 com frete SP) não valem mais.
 
-## Verba recomendada
+## Atualização 06/11 (tarde): em produção
+- **Estoque:** ~100 garrafas na contagem dos sócios; o sistema só tem 15 lançadas (Casa Jhow). Lançar o restante na contagem de 14 a 15/11. Até lá o site vende no máximo 15.
+- **Meta, campanha "Laurelin | B2B Estabelecimentos | WhatsApp | Nov26" (no ar, em análise da Meta):**
+  - conjunto "Grande SP | 25+ | Donos de estabelecimento | Direct": R$ 10/dia, de 06/11 a 30/11 23h59, segunda a sábado das 8h às 21h;
+  - público: São Paulo + 40 km, 25+, sem idade desconhecida; sugestões de proprietários de pequenas empresas, cargo Proprietário e setor Gastronomia e restaurantes;
+  - destino: Messenger e Direct do Instagram. O WhatsApp exige conta WhatsApp Business no número (decisão dos sócios). Ao migrar o número, dá para trocar o destino;
+  - anúncio "B2B | Hidromel na sua carta | 7a garrafa": peças b2b-anuncio-feed e b2b-anuncio-story, aprimoramentos de IA desligados, respostas automáticas para condições, degustação e pedido mínimo;
+  - o nome da campanha ainda diz "WhatsApp" (só o nome).
+- **Conversões:**
+  - novo "Contato WhatsApp (site)" no Google Ads (AW-18547560061/XSYMCKvahLMdEP2clYxF, R$ 20, uma por clique) disparado em todo clique em link wa.me do site;
+  - também manda generate_lead ao GA4, Contact à Meta e etapa "whatsapp" ao funil sem cookies (medicao.js v=18f546d0, funil.php);
+  - a "Compra aprovada (site)" continua como está: aparece "Inativo" até a primeira compra aprovada;
+  - um teste do contato foi disparado em 06/11 (pode aparecer 1 conversão de teste).
+- **B2B automático (loja_007_b2b_auto.sql, no banco desde 06/11):**
+  - ao enviar o cadastro em Minha conta › Estabelecimento, o banco confere os dígitos do CNPJ e consulta a Receita (BrasilAPI);
+  - aprova na hora se estiver ATIVO e com CNAE de bar, restaurante, lanchonete, empório/adega, tabacaria, mercado, hotel ou eventos (lista em loja.config b2b_cnaes);
+  - senão fica pendente com o motivo em "observação" para os sócios decidirem no /admin;
+  - mesmo CNPJ já aprovado em outra conta também fica pendente;
+  - desligar: `UPDATE loja.config SET valor='0' WHERE chave='b2b_auto';`.
+- **7ª garrafa automática:**
+  - no primeiro pedido B2B do CNPJ pelo site com 6+ garrafas, o pedido ganha o brinde (coluna brinde e aviso "BRINDE: mandar 1 garrafa a mais" na anotação interna do /admin);
+  - quando a venda é lançada, sai 1 garrafa como "Amostra / Lead" com o nome do estabelecimento;
+  - o checkout mostra "+ 1 garrafa de degustação (1ª compra) Grátis";
+  - limite: clientes B2B antigos que compravam pelo WhatsApp também ganham se for o primeiro pedido pelo site;
+  - desligar: `UPDATE loja.config SET valor='0' WHERE chave='b2b_brinde';`.
+- **Site:** blocos B2B com botão "Cadastrar meu CNPJ" (/conta/#estabelecimento); promo.js v=63ba852d, compra.js v=04a1a641.
+
+### Verba com 100 garrafas (aprovada 06/11)
+| Período | Meta | Google | Total |
+|---|---|---|---|
+| 07 a 12/11 | R$ 0 (orgânico "vem aí") | Smart R$ 10/dia | R$ 60 |
+| 13 a 23/11 Black November | R$ 15/dia | Smart R$ 10/dia | R$ 275 |
+| 24 a 30/11 Black Friday | R$ 25/dia | Pesquisa R$ 15/dia | R$ 280 |
+| B2B (06 a 30/11) | R$ 10/dia (no ar) | Pesquisa B2B R$ 5/dia (opcional, não criada) | R$ 250 a 370 |
+| **Total** | | | **≈ R$ 865 a 985** |
+
+- Subir até 50% na Black Friday se o custo por pedido ficar até R$ 30 até 20/11.
+- Pausar a campanha que gastar R$ 60 sem venda. No B2B, pausar com menos de 2 conversas a cada R$ 50.
+- **Saldo Meta:** é pré-pago (Pix). Com o B2B (R$ 10) e o site (R$ 7) rodando, o saldo de ~R$ 70 acaba em uns 4 dias. Os sócios precisam colocar crédito.
+
+## Verba recomendada (versão de 06/11 manhã, com 16 garrafas)
 Base: lucro antes do anúncio de ~R$ 80 (pedido de 2 garrafas) a ~R$ 110 (pedido de 4 com frete grátis). Dá para pagar até R$ 40 de anúncio por pedido e ainda sobrar bem. Até agora: Meta R$ 42 sem venda no site; Google R$ 52 com 1 venda (WhatsApp).
 
 | Período | Meta (Instagram/Facebook) | Google | Total |

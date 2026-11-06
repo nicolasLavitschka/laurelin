@@ -91,6 +91,47 @@ Base: lucro antes do anúncio de ~R$ 80 (pedido de 2 garrafas) a ~R$ 110 (pedido
 - Imagens: bf-google-1200x628 e bf-google-1200x1200.
 - Conversão: a "Compra aprovada" que já está ligada.
 
+## Anúncio só para estabelecimentos (rascunho, 06/11)
+Peças: `b2b-anuncio-feed-1080x1350` e `b2b-anuncio-story-1080x1920`.
+
+**Meta: campanha "Laurelin para estabelecimentos" (17/11 a 30/11, R$ 10/dia ≈ R$ 140)**
+- Objetivo: Engajamento › mensagens no WhatsApp (conversa direta, melhor que mandar para o site).
+- Público:
+  - Grande SP, 25 a 60 anos;
+  - comportamento "Proprietários de pequenas empresas" e "Administradores de páginas de negócios";
+  - interesses bar, restaurante, gastronomia, bartender, sommelier.
+- Texto: "Tem um bar, restaurante, empório ou tabacaria? Coloque na carta um hidromel artesanal, não filtrado, feito em Salesópolis (SP). Na primeira compra, a caixa com 6 vem com a 7ª garrafa para a sua equipe provar. De 17/11 a 05/12: R$ 65 a garrafa na caixa de 6 e R$ 60 levando 12, com entrega grátis na Grande SP. Para CNPJ, pagamento por Pix. Venda proibida para menores de 18 anos."
+- Título: "Hidromel na carta do seu bar".
+- Regra de corte: menos de 2 conversas de estabelecimento a cada R$ 50 gastos, pausa.
+
+**Google Pesquisa B2B (opcional, R$ 5/dia, 17/11 a 05/12)**
+- Palavras: "fornecedor de hidromel", "hidromel atacado", "hidromel para bar", "distribuidor de hidromel", "hidromel para revenda".
+- Títulos:
+  - Hidromel para o seu bar
+  - Fornecedor de hidromel em SP
+  - Hidromel artesanal p/ revenda
+  - R$ 60 a garrafa levando 12
+  - 7ª garrafa na 1ª compra
+  - Entrega grátis na Grande SP
+  - Preço especial para CNPJ
+  - Fale no WhatsApp
+  - Não filtrado, 750 ml, 14%
+  - Feito em Salesópolis, SP
+- Descrições:
+  - "Hidromel artesanal não filtrado para bares, restaurantes, empórios e tabacarias de SP."
+  - "Caixa com 6 a R$ 65 cada e 12 a R$ 60 cada até 05/12. Na 1ª compra, a 7ª é degustação."
+  - "Ficha de harmonização para o cardápio. Pagamento por Pix. Venda só para maiores de 18."
+- Destino: /para-estabelecimentos/.
+
+## Como o site libera o B2B
+1. O cliente cria a conta e, em Minha conta › Estabelecimento, manda o cadastro: razão social, CNPJ, responsável, WhatsApp, tipo, volume e cidade.
+2. O cadastro fica como "pendente" e a equipe recebe e-mail.
+3. O site só confere se o CNPJ tem 14 dígitos. A checagem de verdade é manual: um sócio consulta o CNPJ e o tipo de negócio e aprova ou recusa em /admin › Estabelecimentos. Nessa tela dá para marcar "Faturado (prazo)".
+4. Aprovado, o cliente vê os preços B2B. No checkout, marca "Comprar como estabelecimento".
+5. O banco recusa um pedido B2B de cliente não aprovado ou com menos de 6 garrafas. A promoção B2B (R$ 65/R$ 60) entra sozinha nesse pedido.
+6. A 7ª garrafa da primeira compra é manual: vai na entrega, uma vez por CNPJ.
+7. Quem não é aprovado continua vendo e pagando o preço D2C com a Black November e a Black Friday.
+
 ## Mensagem B2B (rascunho para WhatsApp e e-mail; enviar só depois de aprovar)
 > Olá, [nome]! Aqui é o Nícolas, da Laurelin Hidromel, de Salesópolis. Estamos abrindo espaço em bares e restaurantes para o fim de ano e queria te oferecer duas coisas:
 > 1) Na primeira compra, a caixa de 6 garrafas vem com uma 7ª para a sua equipe provar e servir de degustação.

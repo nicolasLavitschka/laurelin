@@ -1,0 +1,108 @@
+# Black November / Black Friday 2026: no ar, anúncios e verba (06/11/2026)
+
+Aprovado pelo Nícolas em 06/11 (menos o Mercado Livre, que fica para depois). Substitui as datas e preços de `black-friday-2026-campanha.md`.
+
+## A oferta (já ligada no site e no banco)
+| Fase | Período | Preços | Frete grátis* |
+|---|---|---|---|
+| Black November (D2C) | 13 a 23/11 | 2 por R$ 150 (R$ 75 cada) · 3 ou mais a R$ 72 cada (10%) | a partir de 4 garrafas |
+| Black Friday (D2C) | 24 a 30/11 | 2 por R$ 150 · 3 por R$ 216 · 4 ou mais a R$ 68 cada (15%) | a partir de 4 garrafas |
+| Black November B2B | 17/11 a 05/12 | 6 a R$ 65 cada · 12 a R$ 60 cada | a partir de 12 garrafas |
+| Primeira compra B2B | sempre | caixa de 6: a 7ª garrafa é de degustação (manual, pelo WhatsApp) | |
+
+*Frete grátis só por transportadora e só para CEPs que começam com 01 a 09 (Grande SP). Retirada e Uber do mesmo dia não entram (o desconto de até R$ 30 no Uber continua manual, ao liberar o pré-pedido).
+
+## O que foi feito no site (06/11)
+- Supabase: `loja_006_black_november.sql` rodado. O preço e o frete grátis são calculados no banco quando o pedido é criado. Na venda do sistema, o "motivo do desconto" recebe o nome da fase (o R$ 68 fica abaixo do mínimo de R$ 70).
+- Conferido no banco: 1 garrafa sem desconto; 2 = R$ 75; 5 na Black November = R$ 72; 4 na Black Friday = R$ 68; B2B 12 = R$ 60; frete grátis em CEP 06010 sim, Campinas não; dia 01/12 sem promoção.
+- Site: novo `assets/js/promo.js` (v=d3130f2c) nas 24 páginas, `compra.js` atualizado (v=9c076d1d) com a linha de desconto no carrinho e no resumo, "Grátis (promoção)" na entrega e a dica "Leve mais 1 e pague R$ 72 cada".
+- Faixa do topo: hoje já mostra "Black November começa dia 13/11"; de 13/11 em diante mostra a oferta da fase.
+- Página inicial: bloco "Tem um estabelecimento?" (primeira compra com a 7ª garrafa + preços B2B quando a fase B2B estiver ativa). Página Para estabelecimentos: bloco "Primeira compra do seu estabelecimento" no topo.
+- Backups em `/home2/hg35b206/backup-etiqueta-2026-10-30/bn__*`.
+- Comandos úteis no Supabase:
+  - Desligar tudo na hora: `UPDATE loja.config SET valor = '0' WHERE chave = 'promo_ativa';`
+  - Mudar fases ou preços: editar o JSON em `loja.config` chave `promo_fases`.
+
+## Artes novas (Drive: Imagens\Black Friday 2026\v2-progressiva)
+13 peças, todas com a advertência:
+- Black November: `bn-feed-01-vem-ai`, `bn-feed-02-oferta`, `bn-story-oferta`, `bn-google-1200x1200`, `bn-google-1200x628`.
+- Black Friday: `bf-feed-01-oferta`, `bf-feed-02-hoje`, `bf-feed-03-ultimo-dia`, `bf-story-oferta`, `bf-story-termina-hoje`, `bf-google-1200x1200`, `bf-google-1200x628`.
+- B2B: `b2b-feed-primeira-compra`.
+
+As artes antigas (Kit 2 R$ 150 / Kit 3 R$ 225 com frete SP) não valem mais.
+
+## Verba recomendada
+Base: lucro antes do anúncio de ~R$ 80 (pedido de 2 garrafas) a ~R$ 110 (pedido de 4 com frete grátis). Dá para pagar até R$ 40 de anúncio por pedido e ainda sobrar bem. Até agora: Meta R$ 42 sem venda no site; Google R$ 52 com 1 venda (WhatsApp).
+
+| Período | Meta (Instagram/Facebook) | Google | Total |
+|---|---|---|---|
+| 07 a 12/11 (aquecimento) | R$ 0 (só posts orgânicos "vem aí") | Smart R$ 10/dia | R$ 60 |
+| 13 a 23/11 Black November | R$ 12/dia | Smart R$ 10/dia | R$ 242 |
+| 24 a 30/11 Black Friday | R$ 20/dia | Pesquisa R$ 15/dia (Smart pausada) | R$ 245 |
+| **Novembro** | **R$ 272** | **R$ 275** | **≈ R$ 550** |
+
+- **Estoque manda:** em 06/11 eram 16 garrafas. Com isso o teto é ~R$ 300: na Black November fica só o Google, e a Meta entra só na Black Friday a R$ 15/dia. R$ 550 só se houver 40 ou mais garrafas.
+- **Regra de corte:**
+  - Se uma campanha gastar R$ 60 sem nenhuma venda, ela pausa.
+  - Se não houver nenhuma venda pelo site até 26/11, a Meta para.
+  - Se cada pedido estiver custando até R$ 30 de anúncio e houver estoque, dá para subir 30%.
+- **B2B sem anúncio pago:** WhatsApp, visita e post orgânico. Um bar de 12 garrafas vale mais que 5 pedidos D2C.
+
+## Anúncios (rascunhos para aprovação; nada foi publicado nem gasto)
+**Meta: campanha "Black November Laurelin"**
+- Objetivo: vendas, otimizando para compra no site; se faltar volume, tráfego para a página de destino.
+- Público:
+  - 25 a 55 anos (nada abaixo de 25, regra da marca);
+  - Grande SP + raio de 80 km; interesses vinho, cerveja artesanal, gastronomia, presentes.
+- Destino: laurelinhidromel.com.br/loja/hidromel-suave-750ml/.
+- Peças: bn-feed-02-oferta + bn-story-oferta.
+- Texto principal: "Black November Laurelin: quanto mais garrafas, menor o preço. 2 por R$ 150 e 3 ou mais a R$ 72 cada, de 13 a 23/11. Hidromel artesanal não filtrado, feito com mel em Salesópolis. O desconto entra sozinho no carrinho. Venda proibida para menores de 18 anos. Beba com moderação."
+- Título: "Até 10% OFF levando mais". Descrição: "Hidromel artesanal 750 ml".
+- 24/11: trocar as peças para bf-feed-01-oferta + bf-story-oferta.
+  - Texto: "Black Friday Laurelin, 24 a 30/11: 4 ou mais garrafas a R$ 68 cada (15% OFF) e frete grátis na Grande SP. 2 por R$ 150, 3 por R$ 216. Presente diferente para o fim de ano. Venda proibida para menores de 18 anos. Beba com moderação."
+  - Título: "Até 15% OFF + frete grátis".
+- 27/11 e 30/11: bf-feed-02-hoje e bf-feed-03-ultimo-dia como peças extras.
+
+**Google: Smart (13 a 23/11)**
+- Trocar os títulos para "Black November Laurelin", "Até 10% OFF levando mais" e "Hidromel artesanal de SP".
+- Destino: a página do produto.
+
+**Google: Pesquisa "Black Friday Hidromel" (24 a 30/11, R$ 15/dia)**
+- Palavras de correspondência de frase: "hidromel", "comprar hidromel", "hidromel artesanal", "hidromel são paulo", "hidromel black friday", "presente hidromel", "hidromel laurelin".
+- Negativas: receita, como fazer, kit fermentação, vaga, emprego.
+- Títulos (até 30 caracteres):
+  - Hidromel Laurelin 750 ml
+  - Black Friday: até 15% OFF
+  - 4 garrafas por R$ 68 cada
+  - Frete grátis na Grande SP
+  - Hidromel artesanal de SP
+  - Não filtrado, feito com mel
+  - Presente diferente p/ Natal
+  - Compre no site oficial
+  - 2 garrafas por R$ 150
+  - De Salesópolis, SP
+  - Entrega em todo o Brasil
+  - Peça pelo site ou WhatsApp
+  - Hidromel suave 14%
+- Descrições (até 90 caracteres):
+  - "Hidromel artesanal não filtrado. Quanto mais garrafas, menor o preço por garrafa."
+  - "Black Friday 24 a 30/11: 4+ garrafas a R$ 68 cada e frete grátis na Grande SP."
+  - "Água, mel e levedura. Feito em Salesópolis. Venda proibida para menores de 18 anos."
+- Imagens: bf-google-1200x628 e bf-google-1200x1200.
+- Conversão: a "Compra aprovada" que já está ligada.
+
+## Mensagem B2B (rascunho para WhatsApp e e-mail; enviar só depois de aprovar)
+> Olá, [nome]! Aqui é o Nícolas, da Laurelin Hidromel, de Salesópolis. Estamos abrindo espaço em bares e restaurantes para o fim de ano e queria te oferecer duas coisas:
+> 1) Na primeira compra, a caixa de 6 garrafas vem com uma 7ª para a sua equipe provar e servir de degustação.
+> 2) De 17/11 a 05/12, a garrafa sai a R$ 65 na caixa de 6 e a R$ 60 levando 12 (com entrega grátis na Grande SP).
+> É um hidromel suave, não filtrado, que harmoniza com queijos, carnes e sobremesas. Posso levar uma amostra ou te mandar a ficha de harmonização para o cardápio?
+> Pagamento à vista (Pix). Venda proibida para menores de 18 anos.
+
+## Pendências para os sócios
+- Garrafas suficientes antes de 13/11. A verba depende disso.
+- Black November começa 13/11:
+  - publicar o post "vem aí" entre 08 e 10/11;
+  - aprovar e publicar os anúncios no Gerenciador da Meta e no Google Ads (os cliques de aceitar termos e publicar são dos sócios).
+- 7ª garrafa da primeira compra B2B: dar no momento da entrega, uma vez por CNPJ.
+- Mercado Livre: correções adiadas (ver black-friday-2026-v2.md).
+- Ainda abertos: as possíveis vendas duplicadas 55/56 e a movimentação de estoque sem local.

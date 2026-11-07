@@ -187,3 +187,12 @@ Peças: `b2b-anuncio-feed-1080x1350` e `b2b-anuncio-story-1080x1920`.
 - 7ª garrafa da primeira compra B2B: dar no momento da entrega, uma vez por CNPJ.
 - Mercado Livre: correções adiadas (ver black-friday-2026-v2.md).
 - Ainda abertos: as possíveis vendas duplicadas 55/56 e a movimentação de estoque sem local.
+
+## Atualização 07/11: campanhas no ar
+- **Google, "Laurelin | B2B Estabelecimentos | Pesquisa | Nov26" (publicada 07/11):** R$ 5/dia, Maximizar cliques com teto de CPC R$ 2,50, só rede de pesquisa, estado de SP, 10 palavras de frase, 1 anúncio (11 títulos, 4 descrições) para /para-estabelecimentos/, IA Max desligada, término 05/12. Aparece "limitada pela política" (bebida alcoólica): normal, não aparece para menores.
+- **Meta, "Laurelin | Black November | Site | 13-23/11" (programada):** conjunto "Grande SP | 25+ | Black November | Site", R$ 15/dia, de 13/11 00h00 a 23/11 23h59, estado de SP, 25+ e sem idade desconhecida. Anúncio "BN | 2 por R$ 150 | imagem | Site" com bn-feed-02-oferta + bn-story-oferta, texto e título do plano, para a página do produto. Mídia relacionada, imagens de IA e aprimoramentos desligados.
+- **Meta, conjunto "SP | 18+ | Instagram | Site" (R$ 7/dia):** término colocado em 12/11 23h59 para não somar com a Black November.
+- **B2B Meta:** 2 conversas até 06/11 (R$ 4,97 cada).
+- **Saldo Meta em 07/11: R$ 56,57.** A R$ 17/dia (B2B + site) acaba por volta de 10/11. De 13 a 23/11 o gasto é R$ 25/dia (BN + B2B): precisa de ~R$ 300 até 23/11.
+- **Google:** pede verificação do anunciante até 07/12 (Adm. › Política › Conta). Sem ela, a conta é pausada. Os sócios fazem (dados da empresa).
+- Falta para a Black Friday (24/11): campanha Meta R$ 25/dia com as peças bf e Pesquisa Google R$ 15/dia.

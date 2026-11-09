@@ -196,3 +196,8 @@ Peças: `b2b-anuncio-feed-1080x1350` e `b2b-anuncio-story-1080x1920`.
 - **Saldo Meta em 07/11: R$ 56,57.** A R$ 17/dia (B2B + site) acaba por volta de 10/11. De 13 a 23/11 o gasto é R$ 25/dia (BN + B2B): precisa de ~R$ 300 até 23/11.
 - **Google:** pede verificação do anunciante até 07/12 (Adm. › Política › Conta). Sem ela, a conta é pausada. Os sócios fazem (dados da empresa).
 - Falta para a Black Friday (24/11): campanha Meta R$ 25/dia com as peças bf e Pesquisa Google R$ 15/dia.
+
+## Atualização 09/11: B2B Meta
+- Resultado até 08/11: 5 conversas a R$ 3,82. As conversas chegam no Messenger da Página (Business Suite › Caixa de Entrada › Respostas a anúncios), não no Direct.
+- Novo anúncio no conjunto B2B: "B2B | vídeo fundador | 7a garrafa" (vídeo 26 s, b2b-video-fundador-9x16.mp4: chamada "Tem um bar, restaurante ou empório?", advertência fixa, tela final com a oferta). Cortado o trecho "terceiro país com maior consumo... consumam no dia a dia" (risco de política de álcool). Aprimoramentos de IA desligados.
+- Anúncio "B2B | Hidromel na sua carta | 7a garrafa": arte story trocada por b2b-anuncio-story-v2 ("Toque em Enviar mensagem" no lugar de "falar no WhatsApp").

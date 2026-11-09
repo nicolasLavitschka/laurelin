@@ -31,3 +31,6 @@ Cada artigo aponta para 2 a 4 páginas do site: os artigos antigos (bebida mais 
 - **Artigo 6 (como é feito):** o texto descreve as etapas de forma geral. Se quiserem, acrescentem detalhes reais (tipo de mel, tempo de fermentação, tamanho do lote).
 - **Artigo 4 (B2B):** as condições (6 garrafas, Pix, 7ª garrafa na 1ª compra) estão sem preço, para o texto não envelhecer.
 - Todos terminam com a advertência obrigatória e não usam travessão.
+
+## Status (09/11)
+- Cadastrados no Laurelin Marketing como **em aprovação** (peças 13 a 18), cada um com a capa (1600x900) e a data agendada às 10h. Autor em branco, histórico "Criado pelo Claude a pedido do Nícolas". Aviso de aprovação gerado para o Nícolas (administrador).

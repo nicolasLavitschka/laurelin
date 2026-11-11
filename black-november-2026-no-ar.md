@@ -206,3 +206,9 @@ Peças: `b2b-anuncio-feed-1080x1350` e `b2b-anuncio-story-1080x1920`.
 - Fase nova em `loja.config` `promo_fases`: "Black Friday antecipada", D2C, de 11/11 a 11/11, preços 2 = R$ 75, 3 = R$ 72, 4+ = R$ 68, frete grátis a partir de 4 (Grande SP). Confirmado no catálogo e na faixa do site. Termina sozinha às 23h59; em 12/11 o site volta a mostrar "Black November começa 13/11".
 - Post e story 11.11 no Drive (`Imagens\Black Friday 2026\v2-progressiva\post-1111-*`).
 - Mercado Livre (11/11): Central de promoções diz "não é possível oferecer promoções" sem o Programa Decola. Aviso de anúncios removidos por "itens proibidos" (política de Alimentos e bebidas); ativos só #6257299332 (R$ 75, 27 un.) e #5539907475 (R$ 88, frete grátis, 58 un.). O anúncio novo de 10/11 não aparece entre os ativos.
+
+## 11/11 (tarde): foco em B2B (12 garrafas fechadas pelas conversas)
+- Meta, conjunto B2B: R$ 10 → R$ 20/dia, término 30/11 → 05/12 23:59. Custo extra ≈ R$ 240; recarregar Meta por volta de 20/11.
+- Google, "Laurelin | B2B Estabelecimentos | Pesquisa | Nov26": R$ 5 → R$ 10/dia. Novas palavras-chave (ampla): hidromel, comprar hidromel, hidromel artesanal, hidromel sao paulo, hidromel preço, bebidas artesanais, fornecedor de bebidas. "distribuidora de bebidas artesanais" foi recusada pela política de álcool do Google e ficou de fora.
+- Negativas na campanha B2B: receita, como fazer, caseiro, caseira, kit, o que é, fermentação, vagas, emprego, curso.
+- Conferir em 2 a 3 dias os termos de pesquisa e se as novas palavras saíram de "Em análise".

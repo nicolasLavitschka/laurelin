@@ -201,3 +201,8 @@ Peças: `b2b-anuncio-feed-1080x1350` e `b2b-anuncio-story-1080x1920`.
 - Resultado até 08/11: 5 conversas a R$ 3,82. As conversas chegam no Messenger da Página (Business Suite › Caixa de Entrada › Respostas a anúncios), não no Direct.
 - Novo anúncio no conjunto B2B: "B2B | vídeo fundador | 7a garrafa" (vídeo 26 s, b2b-video-fundador-9x16.mp4: chamada "Tem um bar, restaurante ou empório?", advertência fixa, tela final com a oferta). Cortado o trecho "terceiro país com maior consumo... consumam no dia a dia" (risco de política de álcool). Aprimoramentos de IA desligados.
 - Anúncio "B2B | Hidromel na sua carta | 7a garrafa": arte story trocada por b2b-anuncio-story-v2 ("Toque em Enviar mensagem" no lugar de "falar no WhatsApp").
+
+## 11/11: Black Friday antecipada (só hoje)
+- Fase nova em `loja.config` `promo_fases`: "Black Friday antecipada", D2C, de 11/11 a 11/11, preços 2 = R$ 75, 3 = R$ 72, 4+ = R$ 68, frete grátis a partir de 4 (Grande SP). Confirmado no catálogo e na faixa do site. Termina sozinha às 23h59; em 12/11 o site volta a mostrar "Black November começa 13/11".
+- Post e story 11.11 no Drive (`Imagens\Black Friday 2026\v2-progressiva\post-1111-*`).
+- Mercado Livre (11/11): Central de promoções diz "não é possível oferecer promoções" sem o Programa Decola. Aviso de anúncios removidos por "itens proibidos" (política de Alimentos e bebidas); ativos só #6257299332 (R$ 75, 27 un.) e #5539907475 (R$ 88, frete grátis, 58 un.). O anúncio novo de 10/11 não aparece entre os ativos.

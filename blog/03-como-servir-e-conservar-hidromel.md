@@ -11,11 +11,11 @@ texto_alternativo_capa: "Garrafa de hidromel Laurelin em fundo escuro, ao lado d
 
 # Como servir e conservar hidromel: temperatura, taça e quanto tempo dura
 
-Quem compra hidromel pela primeira vez costuma ter as mesmas dúvidas: serve gelado ou natural? Em que copo? E depois de aberto, quanto tempo dura? Reunimos aqui as respostas, pensando no Laurelin, um hidromel suave, não filtrado, com 14% de teor alcoólico.
+Quem compra hidromel pela primeira vez costuma ter as mesmas dúvidas: serve gelado ou natural? Em que copo? E depois de aberto, quanto tempo dura? Reunimos aqui as respostas, pensando no Laurelin, um hidromel doce, não filtrado, com 14% de teor alcoólico.
 
 ## Temperatura: gelado, mas não congelado
 
-O ponto ideal para um hidromel suave fica **entre 6 e 10 °C**, a temperatura de um vinho branco.
+Bebidas doces pedem mais frio: para o Laurelin, o ponto ideal fica **entre 6 e 8 °C**, a temperatura de um vinho de sobremesa.
 
 - **Muito gelado** (abaixo de 4 °C), o aroma de mel some e a bebida parece sem graça.
 - **Em temperatura ambiente**, o doce fica mais pesado e o álcool aparece mais.
@@ -25,11 +25,11 @@ Evite o congelador. Esquecer a garrafa lá pode trincar o vidro.
 
 ## Qual taça usar
 
-A **taça de vinho branco** é a melhor escolha: a boca um pouco mais estreita concentra o aroma, e a haste evita esquentar a bebida com a mão. Taças de vinho tinto e de espumante também funcionam.
+Uma **taça pequena de vinho** é a melhor escolha: a boca um pouco mais estreita concentra o aroma, e a haste evita esquentar a bebida com a mão. A taça de vinho branco ou de vinho do Porto funciona bem.
 
 Os chifres e canecas das histórias nórdicas são bonitos na foto, mas espalham o aroma. Se a ocasião pedir o clima medieval, vale pelo charme.
 
-Sirva doses pequenas, de 100 a 120 ml, e encha a taça só até um terço.
+Por ser doce, ele rende mais em doses pequenas, de 60 a 100 ml, como um vinho de sobremesa.
 
 ## O véu dourado no fundo
 
@@ -60,9 +60,9 @@ Se notar cheiro de vinagre ou gosto muito diferente do original, não consuma.
 
 **Hidromel vai com gelo?** Pode ir, principalmente no verão, mas o gelo dilui. Prefira gelar a garrafa.
 
-**Posso usar em drinks?** Pode. Ele substitui bem o vinho branco ou o espumante em receitas leves.
+**Posso usar em drinks?** Pode. Como é doce, ele entra como base e adoçante: combine com limão, tônica ou água com gás.
 
-**Combina com o quê?** Queijos, castanhas, carnes com molho de frutas e sobremesas com frutas. Veja o guia de [hidromel na ceia de Natal](/artigos/hidromel-ceia-de-natal/).
+**Combina com o quê?** Queijos curados e azuis, castanhas, carnes com molho de frutas e sobremesas com frutas. Veja o guia de [hidromel na ceia de Natal](/artigos/hidromel-ceia-de-natal/).
 
 O Laurelin está na [loja do site](/loja/hidromel-suave-750ml/).
 

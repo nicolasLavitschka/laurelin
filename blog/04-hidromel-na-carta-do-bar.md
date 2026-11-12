@@ -18,20 +18,20 @@ Quem tem bar, restaurante, empório ou tabacaria sabe que a carta precisa de nov
 - **Diferencial:** poucos estabelecimentos oferecem. Quem procura hidromel lembra de onde encontrou.
 - **Conversa com o cliente:** a bebida tem história (vikings, gregos, celtas) e rende uma boa descrição na carta e uma boa explicação do garçom.
 - **Versátil:** acompanha tábuas de frios, carnes, pratos com molho de frutas e sobremesas.
-- **Público amplo:** agrada quem gosta de vinho branco, de espumante e de cerveja artesanal.
+- **Público amplo:** agrada quem gosta de bebidas doces, licores e vinhos de sobremesa, e desperta a curiosidade de quem bebe cerveja artesanal.
 - **Produto local:** o Laurelin é feito em Salesópolis (SP), em pequenos lotes. Para casas que valorizam produtor local, isso conta.
 
 ## Como servir no salão
 
-- Taça de vinho branco, dose de 100 a 120 ml.
-- Temperatura entre 6 e 10 °C: deixe a garrafa na geladeira de vinhos ou de bebidas.
+- Taça pequena de vinho, dose de 60 a 100 ml, como um vinho de sobremesa.
+- Temperatura entre 6 e 8 °C: deixe a garrafa na geladeira de vinhos ou de bebidas.
 - Garrafa em pé. O Laurelin não é filtrado e tem um véu dourado natural no fundo.
-- Depois de aberta, a garrafa dura até 5 dias tampada na geladeira. Uma garrafa de 750 ml rende de seis a sete taças.
+- Depois de aberta, a garrafa dura até 5 dias tampada na geladeira. Uma garrafa de 750 ml rende de oito a dez doses.
 
 ## Sugestões para a carta
 
 **Descrição curta:**
-> Hidromel Laurelin. Bebida fermentada de mel, suave e não filtrada, feita em Salesópolis (SP). Servido gelado, em taça. 14% vol.
+> Hidromel Laurelin. Bebida fermentada de mel, doce e não filtrada, feita em Salesópolis (SP). Servido gelado, em taça. 14% vol.
 
 **Combinações para sugerir ao lado:**
 - tábua de queijos (meia cura, gorgonzola, brie) com nozes e mel;
@@ -42,7 +42,7 @@ Quem tem bar, restaurante, empório ou tabacaria sabe que a carta precisa de nov
 
 ## Quanto cobrar
 
-O preço da taça depende da casa, mas uma conta simples ajuda: divida o custo da garrafa por seis taças e aplique a mesma margem que você já usa para vinho em taça. Como o hidromel é novidade para a maioria dos clientes, uma taça com preço parecido com o do vinho branco da casa costuma facilitar o primeiro pedido.
+O preço da taça depende da casa, mas uma conta simples ajuda: divida o custo da garrafa por oito doses e aplique a mesma margem que você já usa para vinho em taça. Como o hidromel é novidade para a maioria dos clientes, uma dose com preço parecido com o de uma taça de vinho da casa costuma facilitar o primeiro pedido.
 
 ## Cuidados com bebida alcoólica
 

@@ -13,20 +13,21 @@ texto_alternativo_capa: "Garrafa de hidromel Laurelin em fundo escuro, ao lado d
 
 Puro e gelado é a forma mais simples de apresentar o hidromel. Mas nas festas de fim de ano, quando a casa enche e a mesa é longa, um drink leve ajuda a servir mais gente com menos bebida por copo. As três receitas abaixo usam o hidromel como base e são fáceis de fazer em jarra.
 
-Todas foram pensadas para um hidromel suave e levemente adocicado, como o Laurelin. Se o seu hidromel for mais seco, ajuste o doce.
+Todas foram pensadas para um hidromel doce, como o Laurelin. Por isso levam limão, chá ou água com gás para equilibrar o açúcar. Se o seu hidromel for mais seco, diminua o limão.
 
 ## 1. Spritz de hidromel
 
 Refrescante, bom para o calor do fim de ano.
 
 **Por copo:**
-- 60 ml de hidromel gelado
-- 60 ml de água com gás ou tônica
+- 50 ml de hidromel gelado
+- 100 ml de água com gás ou tônica
+- suco de meio limão
 - gelo
 - uma fatia de laranja ou limão-siciliano
 - um ramo de alecrim (opcional)
 
-**Como fazer:** encha uma taça grande com gelo, coloque o hidromel e complete com a água com gás. Mexa uma vez, de leve, e finalize com a fruta e o alecrim.
+**Como fazer:** encha uma taça grande com gelo, coloque o hidromel e o limão e complete com a água com gás. Mexa uma vez, de leve, e finalize com a fruta e o alecrim.
 
 **Variação sem álcool:** troque o hidromel por chá branco gelado adoçado com uma colher de mel.
 
@@ -36,14 +37,15 @@ Para servir em jarra ou poncheira, com bastante fruta e gelo.
 
 **Para cerca de 10 copos pequenos:**
 - 1 garrafa de hidromel (750 ml) gelada
-- 500 ml de suco de maçã ou de uva branca
-- 500 ml de água com gás
+- 300 ml de chá verde ou mate gelado, sem açúcar
+- suco de 2 limões
+- 700 ml de água com gás
 - frutas picadas: maçã, pera, uva, laranja e morango
 - gelo
 
-**Como fazer:** coloque as frutas na jarra, junte o hidromel e o suco e leve à geladeira por 30 minutos. Na hora de servir, acrescente o gelo e a água com gás.
+**Como fazer:** coloque as frutas na jarra, junte o hidromel, o chá e o limão e leve à geladeira por 30 minutos. Na hora de servir, acrescente o gelo e a água com gás.
 
-O suco e a água com gás deixam o ponche mais leve. Deixe sempre uma jarra sem álcool ao lado, com os mesmos sucos e frutas, para quem não bebe e para quem vai dirigir.
+O chá, o limão e a água com gás deixam o ponche mais leve e menos doce. Deixe sempre uma jarra sem álcool ao lado, com chá, frutas e um pouco de suco, para quem não bebe e para quem vai dirigir.
 
 ## 3. Hidromel quente com especiarias
 
@@ -51,7 +53,8 @@ Inspirado nas bebidas quentes de inverno da Europa, para noites frescas ou para 
 
 **Para 4 xícaras pequenas:**
 - 400 ml de hidromel
-- 200 ml de suco de maçã
+- 200 ml de água
+- casca e suco de meio limão
 - 1 pau de canela
 - 3 cravos-da-índia
 - 2 fatias de laranja

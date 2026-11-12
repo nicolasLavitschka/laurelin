@@ -43,7 +43,7 @@ Muitas bebidas são filtradas antes do envase para ficarem totalmente límpidas.
 
 ## Feito em Salesópolis
 
-O Laurelin é produzido em pequenos lotes em Salesópolis, a cidade onde nasce o rio Tietê, no interior de São Paulo. O resultado é um hidromel suave, levemente adocicado, com 14% de teor alcoólico, em garrafa de 750 ml.
+O Laurelin é produzido em pequenos lotes em Salesópolis, a cidade onde nasce o rio Tietê, no interior de São Paulo. O resultado é um hidromel doce, com o mel em primeiro plano e 14% de teor alcoólico, em garrafa de 750 ml.
 
 Para provar, visite a [loja do site](/loja/hidromel-suave-750ml/). E se quiser saber de onde vem toda essa tradição, leia [O hidromel é a bebida alcoólica mais antiga do mundo?](/artigos/hidromel-bebida-mais-antiga/).
 

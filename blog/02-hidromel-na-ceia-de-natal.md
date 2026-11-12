@@ -11,14 +11,14 @@ texto_alternativo_capa: "Garrafa de hidromel Laurelin em fundo escuro com detalh
 
 # Hidromel na ceia de Natal: harmonizações do aperitivo à sobremesa
 
-A ceia de Natal brasileira mistura salgado, doce, frutas secas e assados. É justamente o tipo de mesa em que o hidromel se sai bem. Um hidromel suave como o Laurelin tem dulçor leve, aroma de mel e acidez suficiente para limpar o paladar entre um prato e outro.
+A ceia de Natal brasileira mistura salgado, doce, frutas secas e assados. É justamente o tipo de mesa em que o hidromel se sai bem. O Laurelin é um hidromel doce, com aroma de mel marcante: funciona como um vinho de sobremesa e faz contraste com o salgado da ceia.
 
 A regra geral é simples: **o doce do mel equilibra o sal e a gordura, e conversa com frutas e especiarias.** Abaixo, um roteiro do aperitivo à sobremesa.
 
 ## Antes de tudo: como servir
 
-- Sirva gelado, entre 6 e 10 °C. Tire da geladeira pouco antes de servir.
-- Use taça de vinho branco e encha só até um terço, para o aroma aparecer.
+- Sirva bem gelado, entre 6 e 8 °C. Tire da geladeira pouco antes de servir.
+- Use taça pequena de vinho e sirva doses de 60 a 100 ml, como um vinho de sobremesa.
 - Mantenha a garrafa em pé. O véu dourado no fundo é natural de um hidromel [não filtrado](/artigos/hidromel-nao-filtrado/).
 - Ofereça sempre água junto e alternativas sem álcool para quem não bebe.
 
@@ -28,7 +28,7 @@ A regra geral é simples: **o doce do mel equilibra o sal e a gordura, e convers
 
 - **Queijo meia cura e parmesão:** o sal do queijo realça o mel.
 - **Gorgonzola:** o contraste entre o azul e o doce é clássico, o mesmo princípio do queijo com mel.
-- **Brie e camembert:** a cremosidade fica mais leve com a acidez do hidromel.
+- **Brie e camembert:** a cremosidade combina com o mel, ainda mais com uma geleia de frutas vermelhas ao lado.
 - **Acompanhamentos:** nozes, castanha-do-pará, damasco seco, figo e uvas.
 
 ## Entradas e saladas
@@ -39,7 +39,7 @@ Saladas com frutas (manga, pera, uva) e molho de mostarda e mel combinam natural
 
 - **Tender e lombo:** os molhos de abacaxi, laranja ou damasco pedem uma bebida com dulçor. É talvez a melhor combinação da ceia.
 - **Peru e chester:** carnes brancas e assadas vão bem com o hidromel, principalmente com farofa de frutas secas.
-- **Bacalhau:** a combinação é menos óbvia, mas o sal do bacalhau fica equilibrado. Prefira o hidromel bem gelado.
+- **Bacalhau:** com um hidromel doce, a combinação é mais difícil. Se quiser arriscar, sirva bem gelado e em dose pequena.
 - **Pratos muito apimentados:** evite. O álcool realça a pimenta.
 
 ## Sobremesa
@@ -50,7 +50,7 @@ Saladas com frutas (manga, pera, uva) e molho de mostarda e mel combinam natural
 
 ## Quantas garrafas comprar
 
-Uma garrafa de 750 ml rende cerca de seis taças pequenas, de 120 ml. Para uma ceia em que o hidromel acompanha o vinho e as outras bebidas, conte uma garrafa a cada quatro a seis adultos. Depois de aberta, a garrafa dura até 5 dias tampada na geladeira.
+Uma garrafa de 750 ml rende de oito a dez doses de 60 a 100 ml. Para uma ceia em que o hidromel acompanha o vinho e as outras bebidas, conte uma garrafa a cada seis a oito adultos. Depois de aberta, a garrafa dura até 5 dias tampada na geladeira.
 
 ## Dica para presentear o anfitrião
 

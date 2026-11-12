@@ -19,11 +19,11 @@ O hidromel é feito da fermentação do mel com água e é considerado uma das b
 
 Ao mesmo tempo, quase ninguém experimentou. Quem recebe uma garrafa costuma abrir com curiosidade, mostrar para a família e puxar conversa na mesa. Isso já faz do hidromel um presente que é lembrado.
 
-O Laurelin é feito em pequenos lotes em Salesópolis, a cidade onde nasce o rio Tietê, com água, mel e levedura. É um hidromel suave, levemente adocicado, com 14% de teor alcoólico, em garrafa de 750 ml.
+O Laurelin é feito em pequenos lotes em Salesópolis, a cidade onde nasce o rio Tietê, com água, mel e levedura. É um hidromel doce, com o sabor do mel em primeiro plano e 14% de teor alcoólico, em garrafa de 750 ml.
 
 ## Para quem combina
 
-- **Quem gosta de vinho branco ou espumante:** vai reconhecer a acidez e o aroma floral, com o mel no lugar da uva.
+- **Quem gosta de bebidas doces, licores ou vinhos de sobremesa:** vai reconhecer o dulçor, com o mel no lugar da uva.
 - **Quem gosta de cerveja artesanal:** costuma se interessar pela fermentação e pelos estilos de hidromel. Vale indicar [Hidromel, vinho ou cerveja: qual é a diferença?](/artigos/hidromel-vinho-cerveja-diferencas/).
 - **Quem valoriza produto local e feito à mão:** é uma bebida de pequeno produtor, do interior de São Paulo.
 - **Fãs de história, mitologia, séries e jogos medievais:** o hidromel é a bebida dos salões de Valhalla. Nosso artigo sobre [hidromel na mitologia nórdica](/artigos/hidromel-mitologia-nordica/) rende assunto para o presente.
@@ -43,8 +43,8 @@ Se for mandar pelo correio ou por entrega, mantenha a garrafa em pé e bem acomo
 
 ## Como servir
 
-- **Temperatura:** gelado, entre 6 e 10 °C. Uma ou duas horas na geladeira resolvem.
-- **Taça:** a de vinho branco é ideal, porque concentra o aroma.
+- **Temperatura:** bem gelado, entre 6 e 8 °C. Duas a três horas na geladeira resolvem.
+- **Taça:** uma taça pequena de vinho é ideal, porque concentra o aroma. Sirva doses de 60 a 100 ml, como um vinho de sobremesa.
 - **Garrafa em pé:** o Laurelin não é filtrado, então é normal ver um véu dourado no fundo. É parte da bebida e não indica defeito. Explicamos em [Hidromel não filtrado: o que é aquele véu dourado na garrafa](/artigos/hidromel-nao-filtrado/).
 - **Depois de aberto:** guarde tampado na geladeira e consuma em até 5 dias.
 
